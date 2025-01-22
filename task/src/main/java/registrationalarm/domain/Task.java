@@ -31,38 +31,11 @@ public class Task {
 
     @PostPersist
     public void onPostPersist() {
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
-
-        registrationalarm.external.Notification notification = new registrationalarm.external.Notification();
-        // mappings goes here
-        TaskApplication.applicationContext
-            .getBean(registrationalarm.external.NotificationService.class)
-            .scheduleNotification(notification);
-
         TaskCreated taskCreated = new TaskCreated(this);
         taskCreated.publishAfterCommit();
 
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
-
-        registrationalarm.external.Notification notification = new registrationalarm.external.Notification();
-        // mappings goes here
-        TaskApplication.applicationContext
-            .getBean(registrationalarm.external.NotificationService.class)
-            .scheduleNotification(notification);
-
         TaskUpdated taskUpdated = new TaskUpdated(this);
         taskUpdated.publishAfterCommit();
-
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
-
-        registrationalarm.external.Notification notification = new registrationalarm.external.Notification();
-        // mappings goes here
-        TaskApplication.applicationContext
-            .getBean(registrationalarm.external.NotificationService.class)
-            .deleteNotification(notification);
 
         TaskDeleted taskDeleted = new TaskDeleted(this);
         taskDeleted.publishAfterCommit();
